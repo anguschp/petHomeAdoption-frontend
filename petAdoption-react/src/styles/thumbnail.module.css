@@ -1,0 +1,45 @@
+.thumbnailContainer{
+    
+    max-height: 800px;
+}
+
+.thumbnailInner{
+    max-height: 800px;
+
+}
+
+
+.thumbnailInner > img{
+    max-height: 800px;
+}
+
+.thumbDescTable{
+    border: none;
+    color: white;
+}
+
+
+.thumbNailCaption, .thumbNailCaption tr, .thumbNailCaption td{
+    background-color: rgba(59, 59, 59, 0.8);
+}
+
+
+@media screen and (max-width: 992px) {
+
+
+    .thumbnailContainer{
+    
+        max-height: 400px;
+    }
+    
+    .thumbnailInner{
+        max-height: 400px;
+    }
+
+    .thumbnailInner > img{
+        max-height: 400px;
+    }
+    
+
+
+}

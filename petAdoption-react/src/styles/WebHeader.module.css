@@ -1,0 +1,78 @@
+.webheaderStyle{background-color: aquamarine !important;}
+.navLink , .navLinkButton{
+   
+    font-weight: bold;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+
+}
+
+
+
+
+@media screen and (min-width: 992px){
+
+
+    .navLink{
+        margin-left: 35px;
+
+    }
+
+
+}
+
+/*mobile style*/
+@media screen and (max-width: 992px) {
+
+    
+.navLinkButtonLogin{
+
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+
+}
+
+
+/* Custom scrollbar styles */
+::-webkit-scrollbar {
+    width: 12px; /* Width of the scrollbar */
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Color of the track */
+    border-radius: 10px; /* Rounded corners for the track */
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #074421; /* Color of the scrollbar thumb */
+    border-radius: 10px; /* Rounded corners for the thumb */
+    border: 3px solid #074421; /* Padding around the thumb */
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #074421; /* Color of the thumb on hover */
+  }
+
+
+  .customScrollbar {
+    overflow-y: auto; /* Ensure the container has a scrollbar */
+    max-height: 300px; /* Set a max height to enable scrolling */
+  }
+  
+  .customScrollbar::-webkit-scrollbar {
+    width: 8px; /* Narrower scrollbar for the container */
+  }
+  
+  .customScrollbar::-webkit-scrollbar-thumb {
+    background: #666; /* Different color for the container's scrollbar */
+  }
+
+
+  .navbar-nav-scroll{
+    max-height: 500px;
+  }
+
+    
+}
