@@ -1,0 +1,27 @@
+.loginBackground{
+    background: linear-gradient(to bottom right, rgb(209, 109, 50), rgb(30, 112, 226));
+    min-height: 550px;
+}
+
+
+.loginCardContainer{
+    
+    width: 90%;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    text-align: center;  
+    
+}
+
+
+@media screen and (min-width: 800px) {
+    .loginCardContainer{
+        width: 40%;
+    }
+    
+}
+

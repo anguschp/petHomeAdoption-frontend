@@ -2,7 +2,7 @@ body{
     font-family: "Helvetica", "Arial","LiHei Pro","黑體-繁","微軟正黑體", sans-serif;
 }
 
-
-main{
-    min-height: 1000px;
+html, body {
+    height: 100%;
+   
 }
