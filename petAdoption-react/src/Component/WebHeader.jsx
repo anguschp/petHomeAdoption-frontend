@@ -1,4 +1,4 @@
-import React from 'react';
+import React , {useEffect , useState , useRef} from 'react';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
@@ -19,11 +19,36 @@ import {logoutRequestAPI} from '../api/apiAgent.js';
 
 const WebHeader = () => {
 
-
-
-  
   const {authLogout , isAuthenticated} = useAuth();
+  const [menuDisplay , setMenuDisplay] = useState(false);
   const navigate = useNavigate();
+
+  const navRef = useRef(null);  // Ref for the Nav component
+
+  const handleNavClick = (e) => {
+    // Check if the clicked element is a Nav.Link
+    const navLink = e.target.closest(`.${style.navLink}`);
+    if (navLink) {
+      console.log("hello");
+      menuHide();
+    }
+  };
+
+  useEffect(() => {
+    const navElement = navRef.current;
+    
+    if (navElement) {
+      // Add event listener to the entire Nav container
+      navElement.addEventListener('click', handleNavClick);
+    }
+
+    // Cleanup function
+    return () => {
+      if (navElement) {
+        navElement.removeEventListener('click', handleNavClick);
+      }
+    };
+  }, []); 
 
 
   const logOutHandler = async()=>{
@@ -39,9 +64,14 @@ const WebHeader = () => {
       console(error)
       console.log("An error occured while logging out");
     }
-   
-    
   }
+
+
+  function menuShow(){setMenuDisplay(true)}
+
+  function menuHide(){setMenuDisplay(false)}
+
+
 
 
     return (
@@ -58,11 +88,17 @@ const WebHeader = () => {
                 <img src={logo} style={{maxHeight: "50px"}}/>
             </Navbar.Brand>
 
-            <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
+            {/* Menu Toggle Button */}
+            <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} onClick={menuShow}/>
+            
+            
             <Navbar.Offcanvas
               id={`offcanvasNavbar-expand-${expand}`}
               aria-labelledby={`offcanvasNavbarLabel-expand-${expand}`}
               placement="end"
+              show={menuDisplay}
+              onHide={menuHide}
+             
             >
               <Offcanvas.Header closeButton>
                 <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}>
@@ -72,17 +108,21 @@ const WebHeader = () => {
               <Offcanvas.Body>
 
 
-                <Nav className="justify-content-start flex-grow-1 pe-3">
-                  <Nav.Link as={Link} to="/" className={style.navLink}>Home</Nav.Link>
-                  <Nav.Link as={Link} to="/contact" className={style.navLink}>Contact Us</Nav.Link>
+                <Nav className="justify-content-start flex-grow-1 pe-3" ref={navRef}>
+                  <Nav.Link as={Link} to="/" className={style.navLink} onClick={menuHide}>Home</Nav.Link>
+                  <Nav.Link as={Link} to="/contact" className={style.navLink} onClick={menuHide}>Contact Us</Nav.Link>
                   <Nav.Link as={Link} to="/dashboard" 
                     className={style.navLink}
-                    style={{display: isAuthenticated ? "block" : "none"}}>
+                    style={{display: isAuthenticated ? "block" : "none"}}
+                    onClick={menuHide}
+                    >
                       User Dashboard
                   </Nav.Link>
                   <Nav.Link as={Link} to="/adoption" 
                     className={style.navLink}
-                    style={{display: isAuthenticated ? "block" : "none"}}>
+                    style={{display: isAuthenticated ? "block" : "none"}}
+                    onClick={menuHide}
+                    >
                       Adoption List
                   </Nav.Link>
                   
@@ -93,6 +133,7 @@ const WebHeader = () => {
                       className={style.navLinkButtonLogin} 
                       as={Link} to='/register'
                       style={{display: isAuthenticated ? "none" : "block"}}
+                      onClick={menuHide}
                   >
                     Register
                   </Button>
@@ -101,6 +142,7 @@ const WebHeader = () => {
                     className={style.navLinkButtonLogin} 
                     as={Link} to='/loginpage'
                     style={{display: isAuthenticated ? "none" : "block"}}
+                    onClick={menuHide}
                   >
                     Login
                     </Button>
@@ -108,7 +150,11 @@ const WebHeader = () => {
 
                   <Button variant="dark" 
                     className={style.navLinkButtonLogin} 
-                    onClick={logOutHandler}
+                    onClick={()=>{
+                      menuHide();
+                      logOutHandler();
+                    }}
+                    
                     style={{display: isAuthenticated ? "block" : "none"}}
                     >
                       Logout

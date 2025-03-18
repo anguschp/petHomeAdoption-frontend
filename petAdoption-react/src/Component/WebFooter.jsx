@@ -10,7 +10,7 @@ const WebFooter = ()=>{
             <footer>
 
 
-            <div className={style.footer}>
+            <div className={style.footer} style={{textAlign: "center", fontSize: "1.25rem"}}>
 
                 <div className={style.footeInlineContainer}>
                     <div className={style.footerMain}>@Copyright 2025 PetHomeAdoption All Rights Reserved.</div>

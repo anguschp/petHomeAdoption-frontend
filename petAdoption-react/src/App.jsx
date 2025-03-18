@@ -24,6 +24,7 @@ function App() {
       <AuthProvider>
 
           <WebHeader/>
+
           <main>
           <Routes>
               <Route path="/" element={<Home />}></Route>

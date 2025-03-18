@@ -1,0 +1,18 @@
+.filter-panel-wrapper {
+    transition: all 0.3s ease-in-out;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+  }
+  
+  .filter-panel-wrapper.show {
+    max-height: 500px; /* Adjust based on content height */
+    opacity: 1;
+  }
+
+  .toggleFilter{
+
+    width: 12%;
+    justify-content: space-evenly
+
+  }
