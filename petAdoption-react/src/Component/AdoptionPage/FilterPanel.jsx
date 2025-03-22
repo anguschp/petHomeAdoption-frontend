@@ -3,46 +3,59 @@ import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Button from 'react-bootstrap/Button';
 import '../../styles/filterPanel.css'
+import {useUtils} from "../../context-store/UtilConext"
 
 
 
 
-const FilterPanel = ({setFilterList}) => {
+const FilterPanel = ({setFilterList , setSearchSomething}) => {
 
-    const[name , setFilterName] = useState(null);
-    const[serialNo , setFilterSerial] = useState(null);
-    const[breed , setFilterBreed] = useState(null);
-    const[age , setFilterAge] = useState(null);
-    const[gender , setGender] = useState(null);
+    const { breeds, genders , loading, error } = useUtils();
+
+    const breedSelector = [{breedId: "" , breedName:"Select Breed" , created_date:"" , last_modified_date:""}, ...breeds];
+    const genderSelector = [{id: "" , gender_name:"Select Gender" , created_date:"" , last_modified_date:""}, ...genders];
+
+    console.log(breedSelector)
+    console.log(genderSelector)
+
+    const [filters, setFilters] = useState({
+        name: '',
+        serial: '',
+        breed: '',
+        age: '',
+        gender: ''
+      });
 
 
+      const handleChange = (field) => (e) => {
+        setFilters(prev => ({
+            ...prev,
+            [field]: e.target.value
+        }));
+    };
 
-
-    const handleNameChange = (e)=>{
-        setFilterName(e.target.value || null);
-    }
-
-    const handleSerialChange = (e)=>{
-        setFilterSerial(e.target.value || null)
-    }
-
-    const handleBreedChange = (e)=>{
-        setFilterBreed(e.target.value || null)
-    }
-
-    const handleAgeChange = (e)=>{
-        setFilterAge(e.target.value || null)
-    }
-
-    const handleGenderChange = (e)=>{
-        setGender(e.target.value || null) 
-    }
+    
 
     const handleFormSubmit = (e)=>{
         e.preventDefault();
-        let temp = { name, serialNo, breed, age , gender };
-        console.log("check temp: " + JSON.stringify(temp))
-        setFilterList(temp);
+        console.log("check temp: " + JSON.stringify(filters))
+        setSearchSomething();
+        setFilterList(filters);
+    }
+
+
+    const handleClearFilter = ()=>{
+        setFilters({
+            
+            name: '',
+            serial: '',
+            breed: '',
+            age: '',
+            gender: ''
+            
+        })
+
+
     }
   
     return (
@@ -52,50 +65,57 @@ const FilterPanel = ({setFilterList}) => {
 
             <Form.Group className="mb-3" controlId="formNameField">
                 <Form.Label>Pet Name</Form.Label>
-                <Form.Control placeholder="Search by Pet Name" onChange={handleNameChange}/>
+                <Form.Control placeholder="Search by Pet Name" onChange={handleChange('name')} value={filters.name}/>
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formSerialField">
                 <Form.Label>Serial Number</Form.Label>
-                <Form.Control placeholder="Search by Serial Number" onChange={handleSerialChange}/>
+                <Form.Control placeholder="Search by Serial Number" onChange={handleChange('serial')} value={filters.serial}/>
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formSerialField">
-                <Form.Label>Age</Form.Label>
-                <Form.Select aria-label="Default select example" onChange={handleAgeChange}>
-                    <option value="">Select age</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                </Form.Select>
+            <Form.Group className="mb-3" controlId="formAgeField">
+                <Form.Label>Age(0 ~ ?)</Form.Label>
+                <Form.Control placeholder="Search by Pet Age" onChange={handleChange('age')} value={filters.age}/>
             </Form.Group>
 
 
             <Form.Group className="mb-3" controlId="formBreedField">
                 <Form.Label>Breed</Form.Label>
-                <Form.Select aria-label="Default select example" onChange={handleBreedChange}>
-                    <option value="">Select Breed</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                <Form.Select aria-label="Default select example" onChange={handleChange('breed')} value={filters.breed}>
+                    {
+                        breedSelector.map((option)=>{
+                            return(
+                                <option value={option.breedId}>{option.breedName}</option>
+                            )
+                        })
+                    }
+                   
                 </Form.Select>
             </Form.Group>
 
 
             <Form.Group className="mb-3" controlId="formGenderField">
                 <Form.Label>Gender</Form.Label>
-                <Form.Select aria-label="Default select example" onChange={handleGenderChange}>
-                    <option value="">Select Gender</option>
-                    <option value="1">Male</option>
-                    <option value="2">Female</option>
+                <Form.Select aria-label="Default select example" onChange={handleChange('gender')} value={filters.gender}>
+                   {
+                    genderSelector.map((option)=>{
+                        return(
+                            <option value={option.id}>{option.gender_name}</option>
+                        )
+                    })
+                   }
                 </Form.Select>
             </Form.Group>
 
 
             <div style={{textAlign: "center"}}>
 
+                <Button variant="secondary" onClick={handleClearFilter} className='clearFilterBtn'>
+                    Clear Filter
+                </Button>
+
                 <Button variant="success" type="submit" onClick={handleFormSubmit} className='applyFilterBtn'>
-                    Apply Filter
+                    Apply
                 </Button>
 
             </div>

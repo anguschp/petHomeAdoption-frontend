@@ -3,10 +3,12 @@
     max-height: 0;
     overflow: hidden;
     opacity: 0;
+    display: none;
   }
   
   .filter-panel-wrapper.show {
-    max-height: 500px; /* Adjust based on content height */
+    display: block;
+    max-height:fit-content;
     opacity: 1;
   }
 
@@ -15,4 +17,12 @@
     width: 12%;
     justify-content: space-evenly
 
+  }
+
+  .petListCanvas.hide{
+    display: block;
+  }
+
+  .petListCanvas.hide{
+    display: none;
   }

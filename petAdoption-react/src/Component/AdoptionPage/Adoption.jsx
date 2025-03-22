@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass , faXmark} from '@fortawesome/free-solid-svg-icons'
 import FilterPanel from '../AdoptionPage/FilterPanel'
 import "../../styles/Adoption.css"
+import PetListContainer from './PetListContainer';
 
 
 const Adoption = () => {
@@ -14,29 +15,43 @@ const Adoption = () => {
 
   const initialFilter  = {
 
-    "name" : null,
-    "serialNo": null,
-    "breed": null,
-    "age": null,
-    "gender": null
+    "name" : '',
+    "serialNo": '',
+    "breed": '',
+    "age": '',
+    "gender": ''
+
 }
 
   const[filterList , setFilterList] = useState(initialFilter)
   const[searchSomething, setSearchSomething] = useState(false)
+  const[petData, setPetData] = useState([]);
 
 
   const fetchPetList = async()=>{
 
     try{
-      const repsonse = await getPetList(filterList)
-      console.log("fetch pet list: " + JSON.stringify(repsonse))
+
+      const apiObject = Object.fromEntries(
+        Object.entries(filterList).map(([key, value]) => 
+            [key, value === '' ? null : value]
+        )
+      );
+      
+      const repsonse = await getPetList(apiObject)
+      //console.log("fetch pet list: " + JSON.stringify(repsonse))
+      if(repsonse.status == 200)
+      {
+        setPetData(repsonse.data)
+      }
+
     }catch(err)
     {
-      console.log(err)
+      console.log("System error: " + err)
+      alert("System error occured, please try again.")
     }
 
   }
-
  
 
   useEffect(()=>{
@@ -45,8 +60,13 @@ const Adoption = () => {
 
     fetchPetList();
 
-
   } , [filterList])
+
+
+  useEffect(()=>{
+
+
+  },[])
 
 
 
@@ -83,9 +103,12 @@ const Adoption = () => {
           />
       </InputGroup>
 
-      <div className={`filter-panel-wrapper ${searchSomething ? 'show' : ''}`}
-          style={{display: searchSomething?'block':"none"}}>
-        <FilterPanel setFilterList={setFilterList}/>      
+      <div className={`filter-panel-wrapper ${searchSomething ? 'show' : ''}`} >
+        <FilterPanel setFilterList={setFilterList} setSearchSomething={setSearchSomething}/>      
+      </div>
+
+      <div className={`petListCanvas ${searchSomething ? 'hide' : ''}`}>
+        <PetListContainer petData={petData}/>
       </div>
 
       </>

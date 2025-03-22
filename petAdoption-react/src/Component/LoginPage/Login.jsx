@@ -5,7 +5,7 @@ import style from "../../styles/Login.module.css";
 import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../context-store/AuthContext.jsx";
+import { useAuth} from "../../context-store/AuthContext.jsx";
 import { loginRquest } from "../../api/apiAgent.js";
 
 
@@ -17,16 +17,14 @@ const LoginPage = ()=>{
     const [password , setPassword] = useState("");
     const [showerror , setError] = useState("");
     const navigate = useNavigate();
-    const {authLogin}  = useAuth();
+    const {authLogin , saveAuthName , saveAuthId}  = useAuth();
 
 
     const handleUsernameChange = (e)=>{
-        console.log(username);
         setUsername(e.target.value);
     }
 
     const handlePasswordChange = (e)=>{
-        console.log(password);
         setPassword(e.target.value);
 
     }
@@ -47,10 +45,13 @@ const LoginPage = ()=>{
         try{
             const response = await loginRquest(loginData);
             console.log(response);
+            console.log(response.headers);
             if(response.status === 200){
                 console.log("Login successful");
+                saveAuthName(response.data.username);
+                saveAuthId(response.data.user_Id);
                 authLogin();
-                navigate("/dashboard");
+                navigate("/");
                 }
                 else{
                     const returnError = await response.json();

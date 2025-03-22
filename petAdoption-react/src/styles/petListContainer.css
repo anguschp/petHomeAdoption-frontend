@@ -1,0 +1,55 @@
+.cardBoxContainer{
+
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    gap: 1rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    
+}
+
+
+@media (min-width: 600px) {
+    .cardBoxContainer { grid-template-columns: repeat(2, 1fr); }
+}
+
+
+@media (min-width: 900px) {
+    .cardBoxContainer { grid-template-columns: repeat(3, 1fr); }
+  }
+
+.cardBox{
+
+}
+
+
+.cardBox a {
+    text-decoration: none !important;
+    color: inherit !important;
+  }
+  
+  .cardBox a:hover {
+    text-decoration: none !important;
+    color: inherit !important;
+  }
+
+  .card-title{text-align: center;}
+
+  .col{
+    text-align: center;
+  }
+
+  .no-results-message{
+    text-align: center;
+  }
+
+  .cardNameTag{
+    font-weight: bold;
+    background-color: black;
+    color: white;
+    border-radius: 8px;
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+  }

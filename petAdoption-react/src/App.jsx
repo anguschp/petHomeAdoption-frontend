@@ -14,6 +14,9 @@ import RegisterSuccess from './Component/Registration/RegisterSuccess.jsx';
 import { AuthProvider } from './context-store/AuthContext.jsx';
 import { ProtectedRoute } from './Component/ProtectedRoute.jsx';
 import Adoption from './Component/AdoptionPage/Adoption.jsx';
+import PetDetails from "./Component/petDetails/PetInfoDetail.jsx"
+import {UtilProvider} from './context-store/UtilConext.jsx'
+import FavourMain from './Component/FavourList/FavourMain.jsx'
 
 
 
@@ -22,11 +25,13 @@ function App() {
   return (
     <>
       <AuthProvider>
+        <UtilProvider>
 
           <WebHeader/>
 
           <main>
           <Routes>
+
               <Route path="/" element={<Home />}></Route>
               <Route path="/contact" element={<ContactUs />}></Route>
               <Route path="/loginpage" element={<Login />}></Route>
@@ -36,12 +41,16 @@ function App() {
               <Route path="/registerSuccess" element={<RegisterSuccess/>}></Route>
               <Route path="/dashboard" element={<ProtectedRoute><Dashboard/></ProtectedRoute> }></Route>
               <Route path="/adoption" element={<ProtectedRoute><Adoption/></ProtectedRoute> }></Route>
+              <Route path="/pet/:petId" element={<ProtectedRoute><PetDetails/></ProtectedRoute> }></Route>
+              <Route path="/:userId/favourList" element={<ProtectedRoute><FavourMain/></ProtectedRoute> }></Route>
+
 
             </Routes>
             
           </main>
 
           <WebFooter/>
+          </UtilProvider>
       </AuthProvider>
     
     

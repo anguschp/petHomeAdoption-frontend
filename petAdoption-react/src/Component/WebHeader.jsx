@@ -19,7 +19,7 @@ import {logoutRequestAPI} from '../api/apiAgent.js';
 
 const WebHeader = () => {
 
-  const {authLogout , isAuthenticated} = useAuth();
+  const {authLogout , isAuthenticated , userId} = useAuth();
   const [menuDisplay , setMenuDisplay] = useState(false);
   const navigate = useNavigate();
 
@@ -58,10 +58,10 @@ const WebHeader = () => {
       const response = await logoutRequestAPI();
       if(response.status === 200){
         authLogout();
-        navigate("/");
+        navigate('/')
       }
     }catch(error){
-      console(error)
+      console.log(error)
       console.log("An error occured while logging out");
     }
   }
@@ -111,6 +111,7 @@ const WebHeader = () => {
                 <Nav className="justify-content-start flex-grow-1 pe-3" ref={navRef}>
                   <Nav.Link as={Link} to="/" className={style.navLink} onClick={menuHide}>Home</Nav.Link>
                   <Nav.Link as={Link} to="/contact" className={style.navLink} onClick={menuHide}>Contact Us</Nav.Link>
+                  
                   <Nav.Link as={Link} to="/dashboard" 
                     className={style.navLink}
                     style={{display: isAuthenticated ? "block" : "none"}}
@@ -118,12 +119,21 @@ const WebHeader = () => {
                     >
                       User Dashboard
                   </Nav.Link>
+
                   <Nav.Link as={Link} to="/adoption" 
                     className={style.navLink}
                     style={{display: isAuthenticated ? "block" : "none"}}
                     onClick={menuHide}
                     >
                       Adoption List
+                  </Nav.Link>
+
+                  <Nav.Link as={Link} to={`/${userId}/favourList`}
+                    className={style.navLink}
+                    style={{display: isAuthenticated ? "block" : "none"}}
+                    onClick={menuHide}
+                    >
+                      Favour List
                   </Nav.Link>
                   
                 </Nav>

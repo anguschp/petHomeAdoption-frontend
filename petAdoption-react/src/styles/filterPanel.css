@@ -1,6 +1,7 @@
-.applyFilterBtn{
+.applyFilterBtn , .clearFilterBtn{
 
     width: 40%;
+    
 
 }
 
@@ -26,7 +27,7 @@ label{
 
 @media screen and (max-width: 800px) {
     
-    .applyFilterBtn{
+    .applyFilterBtn ,.clearFilterBtn{
 
         width: 60%;
     
@@ -38,7 +39,7 @@ label{
 @media screen and (max-width: 600px) {
     
 
-    .applyFilterBtn{
+    .applyFilterBtn , .clearFilterBtn{
 
         width: 80%;
     

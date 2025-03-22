@@ -13,6 +13,9 @@ export const AuthProvider = ({children}) => {
         return localStorage.getItem("isAuthenticated") === "true";
     });
 
+    const [userId ,setUserId] = useState('');
+    const [username , setUserName] = useState('');
+
     const authLogin = ()=>{
         setIsAuthenticated(true);
         localStorage.setItem("isAuthenticated" , true);
@@ -21,9 +24,18 @@ export const AuthProvider = ({children}) => {
     const authLogout = ()=>{
         setIsAuthenticated(false);
         localStorage.removeItem("isAuthenticated");
+
     }
 
-    const providerContent = {isAuthenticated , authLogin , authLogout};
+    const saveAuthName = (accountUserName)=>{
+        setUserName(accountUserName)
+    }
+
+    const saveAuthId = (accountId)=>{
+        setUserId(accountId)
+    }
+
+    const providerContent = {isAuthenticated , authLogin , authLogout , saveAuthName , saveAuthId , userId , username};
     
     
     return(
