@@ -95,7 +95,7 @@ export const UtilProvider = ({ children }) => {
     };
 
     loadData();
-  }, []);
+  }, [isAuthenticated]);
 
   return (
     <UtilContext.Provider value={utils}>

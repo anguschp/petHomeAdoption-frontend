@@ -8,8 +8,13 @@ import Button from 'react-bootstrap/Button';
 import PhotoSlide from '../petDetails/PhotoSlide'
 import InfoContainer from './InfoContainer';
 import '../../styles/petDetails.css'
+import {useFavourList} from '../../context-store/FavourContext'
+
+
 
 const PetDetails = () => {
+
+
   
   const initialProfile = {
     pet_Id: "",
@@ -25,6 +30,15 @@ const PetDetails = () => {
 
   let {petId} = useParams(); 
   const[petDetail , setPetDetail] = useState(initialProfile)
+
+  const {addPet , removePet , favourPet} = useFavourList();
+
+  function isFavourPetAdded(petIdToCheck) {
+    return favourPet.some((pet) => pet.pet_id === parseInt(petIdToCheck));
+  } 
+
+  const isFavour = isFavourPetAdded(petId)
+
 
 
   const getPetInfo = async(petId)=>{
@@ -66,16 +80,33 @@ const PetDetails = () => {
 
   return (
     
+
     <>
     
     <Container fluid>
       <Row>
         <Col lg="6"><PhotoSlide ImageList={petDetail.pet_Img}/></Col>
         <Col lg="6">
+
+
           <InfoContainer petDetail={petDetail}/>
-          <div style={{textAlign: "center" , margin: "1rem"}}>
-            <Button variant="info" className='applyAdoptionBtn' style={{fontWeight: 'bold'}}>Add to favour list</Button>
-          </div>
+          
+          
+          {
+            isFavour?
+            (
+            <div style={{textAlign: "center" , margin: "1rem"}}>
+              <Button variant="info" className='applyAdoptionBtn' style={{fontWeight: 'bold'}} onClick={()=>{removePet(petId)}}>Remove favour list</Button>
+            </div>
+            )
+
+            :
+            (<div style={{textAlign: "center" , margin: "1rem"}}>
+              <Button variant="info" className='applyAdoptionBtn' style={{fontWeight: 'bold'}} onClick={()=>{addPet(petId)}}>Add to favour list</Button>
+            </div>
+            )
+          }
+
         </Col>
       </Row>
       

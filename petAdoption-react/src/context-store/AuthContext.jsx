@@ -13,29 +13,30 @@ export const AuthProvider = ({children}) => {
         return localStorage.getItem("isAuthenticated") === "true";
     });
 
-    const [userId ,setUserId] = useState('');
-    const [username , setUserName] = useState('');
+     // Initialize userId from localStorage
+    const [userId, setUserId] = useState(() => {
+        return localStorage.getItem("loggedInUserId") || null;
+    });
 
-    const authLogin = ()=>{
+
+    const authLogin = (data)=>{
+
+        console.log(JSON.stringify(data))
+
         setIsAuthenticated(true);
         localStorage.setItem("isAuthenticated" , true);
+        setUserId(data.user_Id)
+        localStorage.setItem("loggedInUserId" , data.user_Id)
     }
     
     const authLogout = ()=>{
         setIsAuthenticated(false);
         localStorage.removeItem("isAuthenticated");
+        localStorage.removeItem("loggedInUserId");
 
     }
 
-    const saveAuthName = (accountUserName)=>{
-        setUserName(accountUserName)
-    }
-
-    const saveAuthId = (accountId)=>{
-        setUserId(accountId)
-    }
-
-    const providerContent = {isAuthenticated , authLogin , authLogout , saveAuthName , saveAuthId , userId , username};
+    const providerContent = {isAuthenticated , authLogin , authLogout , userId};
     
     
     return(

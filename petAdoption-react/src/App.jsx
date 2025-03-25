@@ -17,6 +17,7 @@ import Adoption from './Component/AdoptionPage/Adoption.jsx';
 import PetDetails from "./Component/petDetails/PetInfoDetail.jsx"
 import {UtilProvider} from './context-store/UtilConext.jsx'
 import FavourMain from './Component/FavourList/FavourMain.jsx'
+import FavourListProvider from "./context-store/FavourContext.jsx"
 
 
 
@@ -26,6 +27,7 @@ function App() {
     <>
       <AuthProvider>
         <UtilProvider>
+          <FavourListProvider>
 
           <WebHeader/>
 
@@ -50,6 +52,8 @@ function App() {
           </main>
 
           <WebFooter/>
+
+          </FavourListProvider>
           </UtilProvider>
       </AuthProvider>
     

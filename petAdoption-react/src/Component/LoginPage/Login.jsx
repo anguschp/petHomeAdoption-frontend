@@ -17,7 +17,7 @@ const LoginPage = ()=>{
     const [password , setPassword] = useState("");
     const [showerror , setError] = useState("");
     const navigate = useNavigate();
-    const {authLogin , saveAuthName , saveAuthId}  = useAuth();
+    const {authLogin}  = useAuth();
 
 
     const handleUsernameChange = (e)=>{
@@ -48,9 +48,7 @@ const LoginPage = ()=>{
             console.log(response.headers);
             if(response.status === 200){
                 console.log("Login successful");
-                saveAuthName(response.data.username);
-                saveAuthId(response.data.user_Id);
-                authLogin();
+                authLogin(response.data);
                 navigate("/");
                 }
                 else{

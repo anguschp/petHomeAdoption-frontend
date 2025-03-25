@@ -1,0 +1,12 @@
+.submitBtn{
+    font-weight: bold;
+    text-align: left;
+}
+
+.NameHeader{
+    font-weight: bold;
+    background-color: black;
+    color: white;
+    border-radius: 8px;
+    width: 60%;
+}

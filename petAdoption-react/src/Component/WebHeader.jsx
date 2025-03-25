@@ -20,6 +20,7 @@ import {logoutRequestAPI} from '../api/apiAgent.js';
 const WebHeader = () => {
 
   const {authLogout , isAuthenticated , userId} = useAuth();
+  console.log("check user id from useAuth" + userId);
   const [menuDisplay , setMenuDisplay] = useState(false);
   const navigate = useNavigate();
 
