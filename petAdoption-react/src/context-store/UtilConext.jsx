@@ -26,6 +26,7 @@ const fetchUtils = async (paramsList) => {
 
   try {
     const response = await getAppParams(paramsList);
+
     
     if (response.status !== 200) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -74,14 +75,25 @@ export const UtilProvider = ({ children }) => {
     {
         try {
 
-            const { breedList, genderList } = await fetchUtils(paramsList);
-            
-            setUtils({
-              breeds: breedList,
-              genders: genderList,
-              loading: false,
-              error: null
-            });
+            const result = await fetchUtils(paramsList);
+
+            console.log("Util list result: " + JSON.stringify(result))
+
+            if(result.status == 302 || result.status === 401)
+            {
+              navigate("/loginpage")
+            }
+            else{
+              const { breedList, genderList } = result
+
+              setUtils({
+                breeds: breedList,
+                genders: genderList,
+                loading: false,
+                error: null
+              });
+              
+            }
             
           } catch (error) {
             setUtils(prev => ({

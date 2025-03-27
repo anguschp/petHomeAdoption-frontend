@@ -19,7 +19,7 @@ export async function getPetList(params) {
 
 export async function getAppParams(utilArray)
 {   
-    console.log("Firing getparam api")
+    console.log("fetch util list from database")
     if(utilArray != null)
     {
         //headerObject.params = {items:params};
@@ -61,6 +61,7 @@ export async function RemovePetFromFavour(userId , petId)
     console.log("Remove pet to favour");
     const requestObject = {petId: petId}
     headerObject.headers['Content-Type'] = "application/json"
+    console.log(headerObject)
     return await axiosHelper.post(`${config.API_BASE_URL}/${userId}/favourList/removePet` , requestObject , headerObject)
 }
 
@@ -74,3 +75,9 @@ export async function logoutRequestAPI() {
     return await axiosHelper.post(`${config.API_BASE_URL}/user/logout` , headerObject);
 }
 
+
+export async function submitApplicationAPI(userId){
+    console.log("Apply pet adoption from favour list");
+    console.log(headerObject)
+    return await axiosHelper.post(`${config.API_BASE_URL}/${userId}/submitApplication` , null , headerObject);
+}

@@ -5,6 +5,9 @@
         addPetToFavour,
         RemovePetFromFavour
     } from '../api/apiAgent';
+    import { useNavigate } from 'react-router-dom';
+
+
 
 
     // Update context shape to include actions
@@ -24,7 +27,9 @@
 
     // Existing fetch function
     const fetchFavourList = async (userId) => {
+        
     try {
+        console.log("hi")
         const response = await getFavourPetListFromDB(userId);
 
         console.log("Favour list result: " + JSON.stringify(response.data));
@@ -38,6 +43,8 @@
     };
 
     const FavourListProvider = ({ children }) => {
+
+    const navigate = useNavigate(); // Initialize navigate
     const { userId } = useAuth();
     const [favourList, setFavourList] = useState({
         favourPet: [],
@@ -63,7 +70,14 @@
             favourPet: refetchReult
         }));
         } catch (err) {
-        console.error("Failed to add pet to favorites:", err);
+            console.error("Failed to add pet to favorites:", err);
+            if(err.status === 401)
+            {
+                localStorage.removeItem("isAuthenticated")
+                localStorage.removeItem("loggedInUserId")
+                console.log("Authorized failed or authentication expired")
+                navigate("/loginpage")
+            }
         }
     }, [userId]);
 
@@ -73,6 +87,7 @@
     // Remove pet from both state and DB
     const removePet = useCallback(async (petId) => {
 
+        
         console.log("removePet trigger:");
         console.log(userId);
 
@@ -96,6 +111,10 @@
 
 
     useEffect(() => {
+
+
+        console.log("favour context useEffect");
+
         const loadFavourList = async () => {
         if (!userId) {
             setFavourList({ favourPet: [] });
@@ -104,9 +123,21 @@
 
         try {
             const result = await fetchFavourList(userId);
-            setFavourList({ favourPet: result });
+            if(result.status === 302 || result.status === 401)
+            {
+                navigate("/loginpage")
+            }else{
+                setFavourList({ favourPet: result });
+            }
         } catch (err) {
             console.error("Failed to load favour list:", err);
+            if(err.status === 401)
+            {
+                localStorage.removeItem("isAuthenticated")
+                localStorage.removeItem("loggedInUserId")
+                console.log("Authorized failed or authentication expired")
+                navigate("/loginpage")
+            }
         }
         };
 
