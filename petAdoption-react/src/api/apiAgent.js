@@ -1,6 +1,7 @@
 
 import {config} from '../config-dev';
 import axiosHelper from '../axiosHelper';
+import axios from 'axios';
 
 const headerObject = {
     headers: {
@@ -36,6 +37,7 @@ export async function getPetById(params)
 
 export async function loginRquest(loginData) {
     console.log("Login form data: " + loginData);
+
     return await axiosHelper.post(`${config.API_BASE_URL}/user/login` , loginData, headerObject);
 }
 
@@ -80,4 +82,66 @@ export async function submitApplicationAPI(userId){
     console.log("Apply pet adoption from favour list");
     console.log(headerObject)
     return await axiosHelper.post(`${config.API_BASE_URL}/${userId}/submitApplication` , null , headerObject);
+}
+
+
+export async function fetchUserApplications(userId, sorting) {
+    // Create a new config object for each request to avoid mutation issues
+    const requestConfig = {
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+        },
+        params: sorting,  // Pass sorting as params
+        withCredentials: true  // Ensure cookies are sent
+    };
+
+    console.log("fetch user applications with config:", requestConfig);
+    return await axiosHelper.get(`${config.API_BASE_URL}/${userId}/fetchApplications`, requestConfig);
+}
+
+
+export async function fetchAllApplications(listCriteria) {
+    
+
+    const requestConfig = {
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+        },
+        params: listCriteria,  // Pass sorting as params
+        withCredentials: true  // Ensure cookies are sent
+    };
+
+    console.log("fetch all applications for admin:", requestConfig);
+    return await axiosHelper.get(`${config.API_BASE_URL}/admin/applicationsRecord`, requestConfig);
+}
+
+export async function getApplicationDetailsById(id)
+{
+    const requestConfig = {
+        headers: {
+            "Content-Type": "application/json",
+        },
+        params: {},  // Pass sorting as params
+        withCredentials: true  // Ensure cookies are sent
+    };
+
+    console.log("fetch application reviewer:", requestConfig);
+    return await axiosHelper.get(`${config.API_BASE_URL}/admin/ApplicationDetails/${id}`, requestConfig); 
+}
+
+export async function updateApplication(appId, data) {
+    const requestConfig = {
+        headers: {
+            "Content-Type": "application/json",
+        },
+        data: data,  // Send data in the request body
+        withCredentials: true
+    };
+
+    console.log("Update Application:", requestConfig);
+    return await axiosHelper.put(
+        `${config.API_BASE_URL}/admin/ApplicationDetails/action/${appId}`,
+        data,  // Axios typically takes data as second parameter
+        requestConfig  // Config as third parameter
+    );
 }

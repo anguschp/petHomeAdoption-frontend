@@ -18,25 +18,37 @@ export const AuthProvider = ({children}) => {
         return localStorage.getItem("loggedInUserId") || null;
     });
 
+    const[role , setRole] = useState(
+        ()=>{
+            return localStorage.getItem("role") || null;
+        }
+    )
 
     const authLogin = (data)=>{
 
         console.log(JSON.stringify(data))
 
         setIsAuthenticated(true);
+        setUserId(data.user_Id);
+        setRole(data.assigned_role[0].authority)
+
         localStorage.setItem("isAuthenticated" , true);
-        setUserId(data.user_Id)
         localStorage.setItem("loggedInUserId" , data.user_Id)
+        localStorage.setItem("role" , data.assigned_role[0].authority)
     }
     
     const authLogout = ()=>{
         setIsAuthenticated(false);
+        setUserId(null)
+        setRole(null)
         localStorage.removeItem("isAuthenticated");
         localStorage.removeItem("loggedInUserId");
+        localStorage.removeItem("role");
+
 
     }
 
-    const providerContent = {isAuthenticated , authLogin , authLogout , userId};
+    const providerContent = {isAuthenticated , authLogin , authLogout , userId , role};
     
     
     return(

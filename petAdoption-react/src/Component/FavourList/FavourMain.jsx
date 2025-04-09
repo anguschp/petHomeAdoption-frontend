@@ -1,4 +1,4 @@
-import React from 'react'
+import React , {useEffect} from 'react'
 import { useAuth } from '../../context-store/AuthContext'
 import {useFavourList} from '../../context-store/FavourContext';
 import Button from 'react-bootstrap/Button';
@@ -40,7 +40,7 @@ const FavourMain = () => {
 
             if(err.status === 401)
             {
-                handleUnauthorizedError();
+                handleUnauthorizedError(navigate);
             }else{
                 console.log("Error occur when submitting adopt applcation")
             }
@@ -59,8 +59,10 @@ const FavourMain = () => {
                 {favourPet && favourPet.length > 0 ? (
                 favourPet.map((pet) => (
                     <Card key={pet.pet_id}>
-                    <Card.Body>
-                        <Card.Title className='NameHeader'><h3>{pet.petName}</h3></Card.Title>
+                    <Card.Img variant="top" src={pet.imageSingleURL} style={{maxWidth: "700px", margin: "auto"}}/>
+                    <Card.Body style={{textAlign: "center"}}>
+
+                        <Card.Title className='NameHeader' style={{margin: "auto"}}><h3>{pet.petName}</h3></Card.Title>
                         <Card.Text>
                         <div>Age: {pet.age}</div>
                         </Card.Text>
@@ -70,9 +72,10 @@ const FavourMain = () => {
                         <Card.Text>
                         <div>Breed: {pet.breed}</div>
                         </Card.Text>
-                        <Button variant="primary" onClick={() => { removePet(pet.pet_id) }}>
-                        Remove
-                        </Button>
+
+                        <div>
+                            <Button variant="danger" onClick={() => { removePet(pet.pet_id) }} className='removeBtn'>Remove</Button>
+                        </div>
                     </Card.Body>
                     </Card>
                 ))

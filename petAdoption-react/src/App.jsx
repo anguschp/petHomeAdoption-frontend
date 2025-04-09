@@ -7,7 +7,7 @@ import Home from './Component/mainPage/Home';
 import Login from "./Component/LoginPage/Login.jsx"
 import ContactUs from "./Component/contactPage/Contact-Us.jsx"
 import NoResource from "./Component/Notfound.jsx";
-import Dashboard from './Component/Dashboard.jsx';
+import Dashboard from './Component/UserDashboard/Dashboard.jsx';
 import LoginSuccess from './Component/LoginPage/LoginSuccess.jsx';
 import Register from './Component/Registration/Register.jsx';
 import RegisterSuccess from './Component/Registration/RegisterSuccess.jsx';
@@ -18,7 +18,9 @@ import PetDetails from "./Component/petDetails/PetInfoDetail.jsx"
 import {UtilProvider} from './context-store/UtilConext.jsx'
 import FavourMain from './Component/FavourList/FavourMain.jsx'
 import FavourListProvider from "./context-store/FavourContext.jsx"
-
+import { AdminRoute } from './Component/AdminRoute.jsx';
+import ApplicationManager from './Component/ApplicationManager/ApplicationManager.jsx'
+import ApplicationReviewer from './Component/ApplicationReviewer/ApplicationReviewer.jsx';
 
 
 function App() {
@@ -45,6 +47,9 @@ function App() {
               <Route path="/adoption" element={<ProtectedRoute><Adoption/></ProtectedRoute> }></Route>
               <Route path="/pet/:petId" element={<ProtectedRoute><PetDetails/></ProtectedRoute> }></Route>
               <Route path="/:userId/favourList" element={<ProtectedRoute><FavourMain/></ProtectedRoute> }></Route>
+              <Route path="/:userId/favourList" element={<ProtectedRoute><FavourMain/></ProtectedRoute> }></Route>
+              <Route path="/admin/applicationManager" element={<AdminRoute><ApplicationManager/></AdminRoute> }></Route>
+              <Route path="/application/:applicationId" element={<AdminRoute><ApplicationReviewer/></AdminRoute> }></Route>
 
 
             </Routes>

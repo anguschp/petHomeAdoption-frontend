@@ -33,10 +33,7 @@ const LoginPage = ()=>{
     const loginButtonHandler = async ()=>{
 
         setError("");
-        console.log("Login button clicked");
-        console.log("username: " + username);
-        console.log("Password: " + password);
-
+      
 
         const loginData = new URLSearchParams();
         loginData.append("username", username);

@@ -65,6 +65,7 @@
         await addPetToFavour(userId, petId);
 
         const refetchReult = await fetchFavourList(userId);
+        console.log("check refetchReult:" + JSON.stringify(refetchReult))
 
         setFavourList(prev => ({
             favourPet: refetchReult

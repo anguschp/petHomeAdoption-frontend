@@ -19,7 +19,7 @@ import {logoutRequestAPI} from '../api/apiAgent.js';
 
 const WebHeader = () => {
 
-  const {authLogout , isAuthenticated , userId} = useAuth();
+  const {authLogout , isAuthenticated , userId , role} = useAuth();
   console.log("check user id from useAuth" + userId);
   const [menuDisplay , setMenuDisplay] = useState(false);
   const navigate = useNavigate();
@@ -126,7 +126,7 @@ const WebHeader = () => {
                     style={{display: isAuthenticated ? "block" : "none"}}
                     onClick={menuHide}
                     >
-                      Adoption List
+                      Pet List
                   </Nav.Link>
 
                   <Nav.Link as={Link} to={`/${userId}/favourList`}
@@ -134,7 +134,16 @@ const WebHeader = () => {
                     style={{display: isAuthenticated ? "block" : "none"}}
                     onClick={menuHide}
                     >
-                      Favour List
+                      Your Favour List
+                  </Nav.Link>
+
+
+                  <Nav.Link as={Link} to={`/admin/applicationManager`}
+                    className={style.navLink}
+                    style={{display: isAuthenticated && role === "ROLE_ADMIN" ? "block" : "none"}}
+                    onClick={menuHide}
+                    >
+                      Application Manager
                   </Nav.Link>
                   
                 </Nav>

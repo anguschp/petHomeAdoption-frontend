@@ -34,7 +34,11 @@ const PetDetails = () => {
   const {addPet , removePet , favourPet} = useFavourList();
 
   function isFavourPetAdded(petIdToCheck) {
-    return favourPet.some((pet) => pet.pet_id === parseInt(petIdToCheck));
+    console.log("favourPet: " + favourPet);
+    if(favourPet != null && favourPet.length > 0)
+    {
+      return favourPet.some((pet) => pet.pet_id === parseInt(petIdToCheck));
+    }
   } 
 
   const isFavour = isFavourPetAdded(petId)
