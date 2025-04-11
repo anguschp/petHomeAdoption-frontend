@@ -14,7 +14,7 @@ const FavourMain = () => {
 
     const navigate = useNavigate();
     
-    const {favourPet , removePet} = useFavourList();
+    const {favourPet , removePet , refreshFavourList} = useFavourList();
     //console.log("checl favourPet" + JSON.stringify(favourPet));
 
     const {isAuthenticated , username , userId} = useAuth();
@@ -26,11 +26,12 @@ const FavourMain = () => {
         try{
 
             const response = await submitApplicationAPI(userId);
-            if(response.status !== 201)
+            if(response.status !== 200)
             {
                 console.log("API response problem")
             }else{
                 console.log("Application submitted")
+                refreshFavourList();
             }
 
             console.log('a')
@@ -54,7 +55,7 @@ const FavourMain = () => {
         {isAuthenticated?(
             
             <>
-        <h3 style={{ textAlign: 'center' }}>Your favourite list</h3>
+        <h3 style={{ textAlign: 'center' , fontWeight: "bold"}}>Your Favour List</h3>
 
                 {favourPet && favourPet.length > 0 ? (
                 favourPet.map((pet) => (
@@ -81,7 +82,7 @@ const FavourMain = () => {
                 ))
                 ) : (
                 <div style={{ textAlign: 'center', margin: '20px' }}>
-                    No pets in your favourites list
+                    No pets in your favour list
                 </div>
                 )}
 
