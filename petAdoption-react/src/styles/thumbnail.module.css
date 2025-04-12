@@ -1,16 +1,17 @@
 .thumbnailContainer{
     
-    max-height: 800px;
+    max-height: 900px;
 }
 
 .thumbnailInner{
-    max-height: 800px;
-
+    max-height: 900px;
 }
 
 
 .thumbnailInner > img{
-    max-height: 800px;
+/*     max-height: 800px;
+ */
+    width: 100%;
 }
 
 .thumbDescTable{
@@ -29,15 +30,14 @@
 
     .thumbnailContainer{
     
-        max-height: 400px;
+        max-height: 600px;
     }
     
     .thumbnailInner{
-        max-height: 400px;
+        max-height: 600px;
     }
 
     .thumbnailInner > img{
-        max-height: 400px;
     }
     
 

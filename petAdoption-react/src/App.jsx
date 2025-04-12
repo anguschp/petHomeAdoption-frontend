@@ -21,9 +21,21 @@ import FavourListProvider from "./context-store/FavourContext.jsx"
 import { AdminRoute } from './Component/AdminRoute.jsx';
 import ApplicationManager from './Component/ApplicationManager/ApplicationManager.jsx'
 import ApplicationReviewer from './Component/ApplicationReviewer/ApplicationReviewer.jsx';
+import { useEffect, useRef, useState } from 'react';
+
 
 
 function App() {
+
+  const headerRef = useRef(null);
+  const [headerHeight, setHeaderHeight] = useState(0);
+  useEffect(() => {
+    setHeaderHeight(headerRef.current.clientHeight);
+  }, [headerHeight]);
+
+
+  const mainMinHeight = `calc(100vh - ${headerHeight}px)`;
+
 
   return (
     <>
@@ -31,14 +43,17 @@ function App() {
         <UtilProvider>
           <FavourListProvider>
 
-          <WebHeader/>
+          <WebHeader innerRef={headerRef}/>
 
-          <main>
-          <Routes>
+          {console.log("header height: " + headerHeight)}
+          <main style={{ minHeight: mainMinHeight }}>
+
+            <Routes>
+
 
               <Route path="/" element={<Home />}></Route>
               <Route path="/contact" element={<ContactUs />}></Route>
-              <Route path="/loginpage" element={<Login />}></Route>
+              <Route path="/loginpage" element={<Login props={headerHeight}/>}></Route>
               <Route path="/loginSucess" element={<LoginSuccess />}></Route>
               <Route path="/*" element={<NoResource />}></Route>
               <Route path="/register" element={<Register/>}></Route>
@@ -56,7 +71,7 @@ function App() {
             
           </main>
 
-          {/* <WebFooter/> */}
+          <WebFooter/>
 
           </FavourListProvider>
           </UtilProvider>

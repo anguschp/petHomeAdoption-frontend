@@ -4,15 +4,22 @@
 }
 
 .NameHeader{
-    font-weight: bold;
-    background-color: black;
+    background-color: rgb(54, 54, 54);
     color: white;
-    border-radius: 8px;
-    width: 60%;
+    border-radius: 4px;
+    width: 100%;
+}
+
+.NameHeader h3{
+    line-height: 3rem;
 }
 
 
 .removeBtn{
     text-align: center;
-    width: 60%;
+    width: 40%;
+}
+
+.card-text{
+    font-size: 1.3rem;
 }

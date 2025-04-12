@@ -7,6 +7,7 @@ import '../../styles/FavourList.css'
 import {submitApplicationAPI} from '../../api/apiAgent'
 import {handleUnauthorizedError} from  '../../exception/unAuth'
 import { useNavigate } from 'react-router-dom';
+import CardListGrid from './CardListGrid'
 
 
 
@@ -17,7 +18,7 @@ const FavourMain = () => {
     const {favourPet , removePet , refreshFavourList} = useFavourList();
     //console.log("checl favourPet" + JSON.stringify(favourPet));
 
-    const {isAuthenticated , username , userId} = useAuth();
+    const {isAuthenticated , userId} = useAuth();
     console.log("FavourMain: " + userId);
 
 
@@ -34,7 +35,6 @@ const FavourMain = () => {
                 refreshFavourList();
             }
 
-            console.log('a')
 
         }catch(err)
         {
@@ -55,31 +55,12 @@ const FavourMain = () => {
         {isAuthenticated?(
             
             <>
-        <h3 style={{ textAlign: 'center' , fontWeight: "bold"}}>Your Favour List</h3>
+            <h2 style={{ textAlign: 'center' , fontWeight: "bold", marginBottom: "2rem"}}>Your Favour List</h2>
 
                 {favourPet && favourPet.length > 0 ? (
-                favourPet.map((pet) => (
-                    <Card key={pet.pet_id}>
-                    <Card.Img variant="top" src={pet.imageSingleURL} style={{maxWidth: "700px", margin: "auto"}}/>
-                    <Card.Body style={{textAlign: "center"}}>
-
-                        <Card.Title className='NameHeader' style={{margin: "auto"}}><h3>{pet.petName}</h3></Card.Title>
-                        <Card.Text>
-                        <div>Age: {pet.age}</div>
-                        </Card.Text>
-                        <Card.Text>
-                        <div>Gender: {pet.gender}</div>
-                        </Card.Text>
-                        <Card.Text>
-                        <div>Breed: {pet.breed}</div>
-                        </Card.Text>
-
-                        <div>
-                            <Button variant="danger" onClick={() => { removePet(pet.pet_id) }} className='removeBtn'>Remove</Button>
-                        </div>
-                    </Card.Body>
-                    </Card>
-                ))
+                
+                    <CardListGrid data={favourPet}/>
+                    
                 ) : (
                 <div style={{ textAlign: 'center', margin: '20px' }}>
                     No pets in your favour list
@@ -87,7 +68,7 @@ const FavourMain = () => {
                 )}
 
                 {favourPet && favourPet.length > 0 && (
-                <div style={{ textAlign: "center" }}>
+                <div style={{ textAlign: "center", marginTop: "3rem" }}>
                     <Button variant="warning" className='submitBtn' onClick={ApplicationSubmit}>
                     Submit Application
                     </Button>

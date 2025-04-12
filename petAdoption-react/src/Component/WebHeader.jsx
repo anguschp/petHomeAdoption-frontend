@@ -17,8 +17,9 @@ import {logoutRequestAPI} from '../api/apiAgent.js';
 
 
 
-const WebHeader = () => {
+const WebHeader = (props) => {
 
+  const innerRef = props.innerRef;
   const {authLogout , isAuthenticated , userId , role} = useAuth();
   console.log("check user id from useAuth" + userId);
   const [menuDisplay , setMenuDisplay] = useState(false);
@@ -78,7 +79,7 @@ const WebHeader = () => {
     return (
 
     <>
-    <header>
+    <header ref={innerRef}>
 
     {['xxl'].map((expand) => (
         <Navbar key={expand} expand={expand} className={style.webheaderStyle + " " + style.customScrollbar}>
@@ -111,8 +112,7 @@ const WebHeader = () => {
 
                 <Nav className="justify-content-start flex-grow-1 pe-3" ref={navRef}>
                   <Nav.Link as={Link} to="/" className={style.navLink} onClick={menuHide}>Home</Nav.Link>
-{/*                   <Nav.Link as={Link} to="/contact" className={style.navLink} onClick={menuHide}>Contact Us</Nav.Link>
- */}                  
+           
                   <Nav.Link as={Link} to="/dashboard" 
                     className={style.navLink}
                     style={{display: isAuthenticated ? "block" : "none"}}
@@ -171,6 +171,7 @@ const WebHeader = () => {
 
                   <Button variant="dark" 
                     className={style.navLinkButtonLogin} 
+                    as={Link}
                     onClick={()=>{
                       menuHide();
                       logOutHandler();

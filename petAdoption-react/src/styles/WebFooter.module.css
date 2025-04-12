@@ -7,7 +7,7 @@
     margin-inline: auto; 
     width: 100%;
     min-height: 100px;
-    background-color: #da955c;
+    background-color: #eba267;
 
 
 }
@@ -19,8 +19,4 @@
     align-items: center; /* Center vertically */
     justify-content: center; /* Center horizontally (optional) */
     height: 100px; 
-}
-
-.footerMain{
-
 }

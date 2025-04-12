@@ -10,7 +10,7 @@ import { loginRquest } from "../../api/apiAgent.js";
 
 
     
-const LoginPage = ()=>{
+const LoginPage = (headerHeight)=>{
 
 
     const [username , setUsername] = useState("");
@@ -61,12 +61,13 @@ const LoginPage = ()=>{
     }
 
 
+
     return(
 
         <>
-            <div className={style.loginBackground}>
+            <div className={style.loginBackground} style={{minHeight: `calc(100vh - ${headerHeight.props}px)` , background: "linear-gradient(135deg, rgb(174, 82, 28), rgb(98, 57, 201))"}} >
 
-                <Card className={style.loginCardContainer}>
+                <Card className={style.loginCardContainer} >
                     <Card.Body>
                         <Card.Title>Login</Card.Title>
                         <hr/>
