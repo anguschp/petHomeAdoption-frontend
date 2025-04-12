@@ -56,7 +56,7 @@ function App() {
               <Route path="/loginpage" element={<Login props={headerHeight}/>}></Route>
               <Route path="/loginSucess" element={<LoginSuccess />}></Route>
               <Route path="/*" element={<NoResource />}></Route>
-              <Route path="/register" element={<Register/>}></Route>
+              <Route path="/register" element={<Register props={headerHeight}/>}></Route>
               <Route path="/registerSuccess" element={<RegisterSuccess/>}></Route>
               <Route path="/dashboard" element={<ProtectedRoute><Dashboard/></ProtectedRoute> }></Route>
               <Route path="/adoption" element={<ProtectedRoute><Adoption/></ProtectedRoute> }></Route>
