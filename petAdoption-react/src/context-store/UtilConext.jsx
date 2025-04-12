@@ -66,13 +66,10 @@ export const UtilProvider = ({ children }) => {
     const paramsList = ["breed", "gender"];
     
 
-    const loadData = async () => {
+    const loadUtilData = async () => {
 
-    if(!isAuthenticated)
-    {
-        navigate("/loginpage")
-    }else
-    {
+  
+        
         try {
 
             const result = await fetchUtils(paramsList);
@@ -81,6 +78,7 @@ export const UtilProvider = ({ children }) => {
 
             if(result.status == 302 || result.status === 401)
             {
+
               navigate("/loginpage")
             }
             else{
@@ -101,12 +99,12 @@ export const UtilProvider = ({ children }) => {
               loading: false,
               error: error.message || 'Failed to fetch data'
             }));
-          }
-    }
+        
+        }
       
     };
 
-    loadData();
+    loadUtilData();
   }, [isAuthenticated]);
 
   return (

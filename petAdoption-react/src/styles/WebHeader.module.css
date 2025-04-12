@@ -7,7 +7,14 @@
 }
 
 
+.btnContainer{
+    display: inline-flex;
+    
+}
 
+.btnContainer a{
+  min-width: 100px;  
+}
 
 @media screen and (min-width: 992px){
 
@@ -23,6 +30,13 @@
 /*mobile style*/
 @media screen and (max-width: 992px) {
 
+  .btnContainer{
+    position: absolute;
+    display: block;
+    bottom: 0;
+    width: -webkit-fill-available;
+    padding-bottom: 1.5rem;
+  }
     
 .navLinkButtonLogin{
 

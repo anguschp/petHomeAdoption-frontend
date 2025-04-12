@@ -56,7 +56,7 @@ function App() {
             
           </main>
 
-          <WebFooter/>
+          {/* <WebFooter/> */}
 
           </FavourListProvider>
           </UtilProvider>

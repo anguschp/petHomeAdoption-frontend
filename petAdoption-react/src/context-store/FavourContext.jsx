@@ -48,26 +48,36 @@ const FavourListProvider = ({ children }) => {
         if (!userId) {
             setFavourList({ favourPet: [] });
             return;
+        }else{
+
+            try {
+
+                const result = await fetchFavourList(userId);
+                if (result.status === 302 || result.status === 401) {
+                    navigate("/loginpage");
+                } else {
+                    setFavourList({ favourPet: result });
+                }
+            } catch (err) {
+                console.error("Failed to load favour list:", err);
+                if (err.status === 401) {
+                    localStorage.removeItem("isAuthenticated");
+                    localStorage.removeItem("loggedInUserId");
+                    console.log("Authorized failed or authentication expired");
+
+                    navigate("/loginpage");
+                }else{
+                    console.log("Refresh favour list API error: " + err);
+                    setFavourList({ favourPet: [] });
+                }
+            }
+
+
         }
 
 
-        try {
-            const result = await fetchFavourList(userId);
-            if (result.status === 302 || result.status === 401) {
-                navigate("/loginpage");
-            } else {
-                setFavourList({ favourPet: result });
-            }
-        } catch (err) {
-            console.error("Failed to load favour list:", err);
-            if (err.status === 401) {
-                localStorage.removeItem("isAuthenticated");
-                localStorage.removeItem("loggedInUserId");
-                console.log("Authorized failed or authentication expired");
-                navigate("/loginpage");
-            }
-        }
-    }, [userId, navigate]);
+        
+    }, [userId]);
 
     // Add pet to both state and DB
     const addPet = useCallback(async (petId) => {
@@ -82,10 +92,11 @@ const FavourListProvider = ({ children }) => {
                 localStorage.removeItem("isAuthenticated");
                 localStorage.removeItem("loggedInUserId");
                 console.log("Authorized failed or authentication expired");
+
                 navigate("/loginpage");
             }
         }
-    }, [userId, navigate, refreshFavourList]);
+    }, [userId, refreshFavourList]);
 
     // Remove pet from both state and DB
     const removePet = useCallback(async (petId) => {
@@ -99,10 +110,11 @@ const FavourListProvider = ({ children }) => {
             if (err.status === 401) {
                 localStorage.removeItem("isAuthenticated");
                 localStorage.removeItem("loggedInUserId");
+
                 navigate("/loginpage");
             }
         }
-    }, [userId, navigate, refreshFavourList]);
+    }, [userId, refreshFavourList]);
 
     // Initial load
     useEffect(() => {

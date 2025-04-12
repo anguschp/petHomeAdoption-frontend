@@ -111,8 +111,8 @@ const WebHeader = () => {
 
                 <Nav className="justify-content-start flex-grow-1 pe-3" ref={navRef}>
                   <Nav.Link as={Link} to="/" className={style.navLink} onClick={menuHide}>Home</Nav.Link>
-                  <Nav.Link as={Link} to="/contact" className={style.navLink} onClick={menuHide}>Contact Us</Nav.Link>
-                  
+{/*                   <Nav.Link as={Link} to="/contact" className={style.navLink} onClick={menuHide}>Contact Us</Nav.Link>
+ */}                  
                   <Nav.Link as={Link} to="/dashboard" 
                     className={style.navLink}
                     style={{display: isAuthenticated ? "block" : "none"}}
@@ -148,7 +148,8 @@ const WebHeader = () => {
                   
                 </Nav>
 
-                <div>
+                <div className={style.btnContainer}>
+
                   <Button variant="light" 
                       className={style.navLinkButtonLogin} 
                       as={Link} to='/register'
